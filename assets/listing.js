@@ -189,7 +189,7 @@ function initListing() {
           ${c.dealer ? `<a href="otsing.html" class="link-more" style="margin-top:14px;font-size:14px">Kõik müüja kuulutused ${icon('arrowRight', 'sm')}</a>` : ''}
         </div>
 
-        <div style="display:flex;gap:8px;justify-content:center">
+        <div class="l-links">
           <a class="btn btn-ghost btn-sm" href="https://www.auto24.ee/soidukid/${c.id}" target="_blank" rel="noopener">${icon('arrowRight', 'sm')}auto24.ee</a>
           <button class="btn btn-ghost btn-sm" id="shareBtn">${icon('share', 'sm')}Jaga</button>
           <button class="btn btn-ghost btn-sm" onclick="toast('Täname, vaatame kuulutuse üle')">Teata</button>

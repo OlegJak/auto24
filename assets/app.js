@@ -172,7 +172,7 @@ function carCard(c, { eager = false } = {}) {
     <div class="car-media">
       <img src="${img(c.imgs[0])}" alt="${esc(c.make)} ${esc(c.model)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">
       <div class="tags">${tags}</div>
-      ${c.verified ? `<span class="tag tag-glass photos">${icon('shield')} Kontrollitud ajalugu</span>` : ''}
+      ${c.verified ? `<span class="tag tag-glass photos" title="Kontrollitud ajalugu">${icon('shield')}<span class="lbl">Kontrollitud ajalugu</span></span>` : ''}
     </div>
     <button class="fav" data-fav="${c.id}" aria-pressed="${favs.has(c.id)}" aria-label="Lisa lemmikutesse">${icon('heart')}</button>
     <div class="car-body">

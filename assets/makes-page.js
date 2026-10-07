@@ -23,7 +23,7 @@ function initMakes() {
     const state = (make ? (model ? 2 : 1) : 0);
     const cls = i < state ? 'done' : i === state ? 'current' : '';
     const inner = `<span class="dot">${i < state ? icon('check', 'sm') : i + 1}</span><span class="lbl">${label}</span>${value ? `<b data-no-i18n>${esc(value)}</b>` : ''}`;
-    return `<li class="${cls}">${i < state && href ? `<a href="${href}">${inner}</a>` : inner}</li>`;
+    return `<li class="${cls}">${i < state && href ? `<a class="st" href="${href}">${inner}</a>` : `<div class="st">${inner}</div>`}</li>`;
   }).join('')}</ol>`;
 
   const crumbs = `<nav class="crumbs" aria-label="Asukoht"><a href="index.html">Avaleht</a>${icon('chevRight')}<a href="mark.html">Margid</a>${make ? `${icon('chevRight')}<a href="mark.html?m=${encodeURIComponent(make)}" data-no-i18n>${esc(make)}</a>` : ''}${model ? `${icon('chevRight')}<span data-no-i18n>${esc(model)}</span>` : ''}</nav>`;
