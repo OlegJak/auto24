@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <script>try{if(JSON.parse(localStorage.getItem('a24.lang'))==='ru')document.documentElement.classList.add('i18n-wait')}catch(e){}setTimeout(function(){document.documentElement.classList.remove('i18n-wait')},2500)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kasutatud autod — auto24</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://img13.img-bcg.eu">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/data.js" defer></script>
+  <script src="assets/catalog.js" defer></script>
+  <script src="assets/makes.js" defer></script>
+  <script src="assets/i18n.js" defer></script>
+  <script src="assets/app.js" defer></script>
+  <script src="assets/search.js" defer></script>
+</head>
+<body data-page="search">
+  <main class="container">
+    <div class="page-head">
+      <div id="crumbs"></div>
+      <h1 id="title">Kasutatud autod <span class="num" id="titleCount"></span></h1>
+    </div>
+
+    <div class="search-layout">
+      <aside class="filters" id="filters" aria-label="Filtrid">
+        <div class="filters-head">
+          <h2>Filtrid</h2>
+          <button type="button" id="resetFilters">Tühjenda</button>
+        </div>
+
+        <div class="filter-body" id="filterBody"></div>
+
+        <div class="filters-foot"><button class="btn btn-primary btn-lg btn-block" type="button" id="applyFilters">Näita tulemusi</button></div>
+      </aside>
+
+      <section aria-label="Tulemused">
+        <div class="toolbar">
+          <button class="btn btn-outline btn-sm filter-open" type="button" id="openFilters"></button>
+          <div class="active" id="activeChips"></div>
+          <div class="toolbar-right">
+            <select class="control" id="sort" aria-label="Sorteeri">
+              <option value="rel">Asjakohasuse järgi</option>
+              <option value="new">Lisamisaja järgi</option>
+              <option value="priceAsc">Hind: odavamad enne</option>
+              <option value="priceDesc">Hind: kallimad enne</option>
+              <option value="make">Margi järgi</option>
+              <option value="yearDesc">Aasta järgi</option>
+              <option value="kmAsc">Läbisõidu järgi</option>
+            </select>
+            <div class="view-toggle" role="group" aria-label="Vaade">
+              <button type="button" data-view="list" aria-label="Loend"></button>
+              <button type="button" data-view="grid" aria-label="Ruudustik"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="results list" id="results"></div>
+
+        <div class="save-search" id="saveSearch">
+          <svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <div><b>Salvesta see otsing</b>Teavitame, kui lisandub sobiv kuulutus või hind langeb.</div>
+          <button class="btn btn-dark btn-sm" type="button" id="saveBtn">Salvesta</button>
+        </div>
+
+        <nav class="pager" id="pager" aria-label="Lehed"></nav>
+      </section>
+    </div>
+  </main>
+  <div class="backdrop" id="backdrop"></div>
+</body>
+</html>

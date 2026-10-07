@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <script>try{if(JSON.parse(localStorage.getItem('a24.lang'))==='ru')document.documentElement.classList.add('i18n-wait')}catch(e){}setTimeout(function(){document.documentElement.classList.remove('i18n-wait')},2500)</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>auto24 — Eesti suurim autoturg</title>
+  <meta name="description" content="Osta ja müü autosid lihtsalt. Üle 48 000 kuulutuse, kontrollitud ajalugu ja kiire otsing.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://img13.img-bcg.eu">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/data.js" defer></script>
+  <script src="assets/catalog.js" defer></script>
+  <script src="assets/i18n.js" defer></script>
+  <script src="assets/app.js" defer></script>
+  <script src="assets/home.js" defer></script>
+</head>
+<body data-page="home">
+  <main>
+    <!-- Advertising slot -->
+    <section class="ad-slot">
+      <div class="container">
+        <a class="ad" href="#" aria-label="Reklaam: auto24 liising — Sina valid. Jääkmaksumus 0% või 25%">
+          <img src="assets/ad-banner.jpg" alt="auto24 liising: Sina valid. Jääkmaksumus 0% või 25%" width="1878" height="750" fetchpriority="high">
+          <span class="ad-label">Reklaam</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Search + brands -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-head">
+          <h1>Otsi sõidukit</h1>
+          <p class="hero-lead"><b class="num">48 213</b> kuulutust · <b class="num">1 284</b> uut täna</p>
+        </div>
+      </div>
+      <div class="container hero-grid">
+          <form class="search-card" id="heroSearch" action="otsing.html">
+            <div class="vtabs" role="tablist" aria-label="Sõiduki tüüp">
+              <button type="button" role="tab" aria-selected="true" data-icon="car">Autod</button>
+              <button type="button" role="tab" aria-selected="false" data-icon="bike">Moto</button>
+              <button type="button" role="tab" aria-selected="false" data-icon="truck" title="Veokid ja kaubikud">Veokid</button>
+              <button type="button" role="tab" aria-selected="false" data-icon="boat">Veesõidukid</button>
+              <button type="button" role="tab" aria-selected="false" data-icon="wrench">Varuosad</button>
+            </div>
+            <div class="search-grid">
+              <div class="field">
+                <label for="fMake">Mark</label>
+                <select id="fMake" class="control"><option value="">Kõik margid</option></select>
+              </div>
+              <div class="field">
+                <label for="fModel">Mudel</label>
+                <select id="fModel" class="control" disabled><option value="">Kõik mudelid</option></select>
+              </div>
+              <div class="field">
+                <label for="fBody">Keretüüp</label>
+                <select id="fBody" name="body" class="control"><option value="">Kõik</option></select>
+              </div>
+              <div class="field">
+                <span class="field-label">Hind, €</span>
+                <div class="range"><input class="control num" name="priceMin" inputmode="numeric" placeholder="Alates" aria-label="Hind alates"><input class="control num" name="priceMax" inputmode="numeric" placeholder="Kuni" aria-label="Hind kuni"></div>
+              </div>
+              <div class="field">
+                <span class="field-label">Aasta</span>
+                <div class="range"><select class="control" name="yearMin" aria-label="Aasta alates"><option value="">Alates</option></select><select class="control" name="yearMax" aria-label="Aasta kuni"><option value="">Kuni</option></select></div>
+              </div>
+              <div class="field">
+                <label for="fFuel">Kütus</label>
+                <select id="fFuel" name="fuel" class="control"><option value="">Kõik</option></select>
+              </div>
+            </div>
+
+            <div class="search-more" id="searchMore" hidden>
+              <div class="search-grid">
+                <div class="field">
+                  <span class="field-label">Läbisõit, km</span>
+                  <div class="range"><input class="control num" name="kmMin" inputmode="numeric" placeholder="Alates" aria-label="Läbisõit alates"><input class="control num" name="kmMax" inputmode="numeric" placeholder="Kuni" aria-label="Läbisõit kuni"></div>
+                </div>
+                <div class="field">
+                  <span class="field-label">Võimsus, kW</span>
+                  <div class="range"><input class="control num" name="kwMin" inputmode="numeric" placeholder="Alates" aria-label="Võimsus alates"><input class="control num" name="kwMax" inputmode="numeric" placeholder="Kuni" aria-label="Võimsus kuni"></div>
+                </div>
+                <div class="field">
+                  <span class="field-label">auto24 kuumakse, €</span>
+                  <div class="range"><input class="control num" name="payMin" inputmode="numeric" placeholder="Alates" aria-label="Kuumakse alates"><input class="control num" name="payMax" inputmode="numeric" placeholder="Kuni" aria-label="Kuumakse kuni"></div>
+                </div>
+                <div class="field">
+                  <label for="fGear">Käigukast</label>
+                  <select id="fGear" name="gear" class="control"><option value="">Kõik</option><option value="manuaal">Manuaal</option><option value="automaat">Automaat</option><option value="poolautomaat">Poolautomaat</option></select>
+                </div>
+                <div class="field">
+                  <label for="fDrive">Vedav sild</label>
+                  <select id="fDrive" name="drive" class="control"><option value="">Kõik</option><option value="esivedu">Esivedu</option><option value="tagavedu">Tagavedu</option><option value="nelikvedu">Nelikvedu</option></select>
+                </div>
+                <div class="field">
+                  <label for="fAge">Kuulutuse vanus</label>
+                  <select id="fAge" name="age" class="control"><option value="">Kõik</option><option value="1">kuni 1 päev</option><option value="2">kuni 2 päeva</option><option value="3">kuni 3 päeva</option><option value="7">kuni 7 päeva</option></select>
+                </div>
+              </div>
+              <label class="check" style="margin:12px 12px 0"><input type="checkbox" name="verified" value="1">Ainult kontrollitud ajalooga</label>
+            </div>
+
+            <div class="search-foot">
+              <button class="btn btn-primary btn-lg" type="submit" id="heroSubmit"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m20.5 20.5-4.2-4.2"/></svg><span>Näita 48 213 kuulutust</span></button>
+              <button type="button" class="link-more more-toggle" id="moreToggle" aria-expanded="false" aria-controls="searchMore">Rohkem valikuid <svg class="i sm" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+            </div>
+            <a href="otsing.html" class="adv-link">Täpsem otsing: varustus, värvus, asukoht, müüja →</a>
+            <div class="quick">
+            <div class="quick-label">Populaarsed otsingud</div>
+            <div class="chips">
+              <a class="chip" href="otsing.html?fuel=elekter">Elektriautod</a>
+              <a class="chip" href="otsing.html?priceMax=15000">Kuni 15 000 €</a>
+              <a class="chip" href="otsing.html?body=maastur&drive=nelikvedu">Nelikveolised maasturid</a>
+              <a class="chip" href="otsing.html?verified=1">Kontrollitud ajalugu</a>
+              <a class="chip" href="otsing.html?yearMin=2021">2021 ja uuemad</a>
+              <a class="chip" href="otsing.html?eq=110&eq=109">Apple CarPlay + Android Auto</a>
+            </div>
+          </div>
+          </form>
+
+        <aside class="brands-panel" aria-labelledby="brandsTitle">
+          <div class="brands-head">
+            <h2 id="brandsTitle">Populaarsed margid</h2>
+            <button type="button" class="link-more" id="allBrandsBtn" aria-expanded="false">Kõik margid</button>
+          </div>
+          <div class="brand-list" id="brandList"></div>
+          <div class="brand-all" id="brandAll" hidden>
+            <input class="control filter-search" id="brandSearch" placeholder="Otsi marki" aria-label="Otsi marki">
+            <div class="brand-list brand-list-all" id="brandListAll"></div>
+          </div>
+          <a class="brands-foot" href="mark.html">Kõik margid A–Z <svg class="i sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </aside>
+      </div>
+
+      <div class="container">
+        <div class="trust" style="margin-top:32px">
+          <div><svg class="i" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span><b>Kontrollitud ajalugu</b>Läbisõit ja liiklusõnnetused registrist</span></div>
+          <div><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span><b>Teavitused</b>Saad teada uutest pakkumistest esimesena</span></div>
+          <div><svg class="i" viewBox="0 0 24 24"><path d="M16 17h6v-6M22 17l-8.5-8.5-5 5L2 7"/></svg><span><b>Hinnaanalüüs</b>Näed, kas hind on turuhinnast all või üle</span></div>
+          <div><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg><span><b>Kuulutus 3 minutiga</b>Andmed täituvad registreerimisnumbri järgi</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body types -->
+    <section class="section" style="padding-top:32px">
+      <div class="container">
+        <div class="section-head"><div><h2>Otsi kere järgi</h2></div></div>
+        <div class="types" id="types"></div>
+      </div>
+    </section>
+
+    <!-- Fresh listings -->
+    <section class="section" style="padding-top:8px">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Värsked kuulutused</h2>
+            <p>Lisatud viimase 24 tunni jooksul</p>
+          </div>
+          <a href="otsing.html" class="link-more">Vaata kõiki <svg class="i sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="tabs chips" id="freshTabs" style="margin-bottom:20px">
+          <button class="chip" aria-pressed="true" data-tab="all">Kõik</button>
+          <button class="chip" aria-pressed="false" data-tab="ev">Elektri- ja hübriidautod</button>
+          <button class="chip" aria-pressed="false" data-tab="cheap">Kuni 25 000 €</button>
+          <button class="chip" aria-pressed="false" data-tab="suv">Maasturid</button>
+          <button class="chip" aria-pressed="false" data-tab="premium">Premium</button>
+        </div>
+        <div class="card-grid" id="fresh"></div>
+      </div>
+    </section>
+
+    <!-- Auctions -->
+    <section class="section" style="padding-top:8px">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>Oksjonid</h2><p>Pakkumised lõppevad peagi</p></div>
+          <a href="#" class="link-more">Kõik oksjonid <svg class="i sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="auctions" id="auctions"></div>
+      </div>
+    </section>
+
+    <!-- Sell CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="sell">
+          <div class="sell-copy">
+            <h2>Müü oma auto kiiresti ja hea hinnaga</h2>
+            <p>Sisesta registreerimisnumber — täidame tehnilised andmed ise. Sulle jääb vaid pildistada.</p>
+            <div class="steps">
+              <div><b>1</b>Sisesta reg. number</div>
+              <div><b>2</b>Lisa fotod ja hind</div>
+              <div><b>3</b>Avalda ja oota pakkumisi</div>
+            </div>
+            <a href="#" class="btn btn-primary btn-lg" data-sell>Lisa kuulutus</a>
+          </div>
+          <form class="estimate" id="estimate">
+            <h3>Kui palju su auto väärt on?</h3>
+            <div class="row">
+              <label class="plate"><span class="eu">EST</span><input id="plate" maxlength="7" placeholder="123ABC" aria-label="Registreerimisnumber" autocomplete="off"></label>
+              <button class="btn btn-lg" style="background:#fff;color:#0d1117" type="submit">Hinda</button>
+            </div>
+            <div class="estimate-out" id="estimateOut" aria-live="polite">Tasuta hinnang turuandmete põhjal. Ei mingit registreerimist.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial -->
+    <section class="section" id="uudised">
+      <div class="container">
+        <div class="section-head">
+          <div><h2>Ajakiri</h2><p>Proovisõidud, ostuabi ja uudised</p></div>
+          <a href="#" class="link-more">Kõik artiklid <svg class="i sm" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="editorial" id="editorial"></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
