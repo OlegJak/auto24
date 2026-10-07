@@ -704,7 +704,7 @@ select.control:disabled, .dd-btn:disabled { opacity: .55; cursor: not-allowed; }
 .gallery-main .prev { left: 16px; }
 .gallery-main .next { right: 16px; }
 .gallery-main .counter { position: absolute; right: 16px; bottom: 16px; }
-.thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; padding: 4px; margin: -4px; }
 .thumbs button { aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; opacity: .6; transition: opacity .15s; outline-offset: 2px; }
 .thumbs button:hover { opacity: .9; }
 .thumbs button[aria-current="true"] { opacity: 1; outline: 2px solid var(--accent); }
@@ -880,7 +880,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); height: 24px; ma
   .thumbs { grid-template-columns: repeat(6, 64px); overflow-x: auto; scrollbar-width: none; }
   .gallery { margin: 0 calc(-1 * var(--gutter)); }
   .gallery-main { border-radius: 0; aspect-ratio: 4 / 3; }
-  .thumbs { padding: 0 var(--gutter); }
+  .thumbs { padding: 4px var(--gutter); scroll-padding-inline: var(--gutter); }
   .gallery-main .nav { opacity: 1; width: 38px; height: 38px; }
   .panel { padding: 20px 18px; border-radius: 20px; }
   .kv { grid-template-columns: 1fr 1fr; }
