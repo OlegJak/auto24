@@ -38,7 +38,10 @@ function initMakes() {
       <h2 class="mk-sub">Populaarsed margid</h2>
       <div class="mk-grid popular" data-no-i18n>${POPULAR_MAKES.map((m) => `<a class="mk-tile brand" href="mark.html?m=${encodeURIComponent(m)}">${brandLogo(m, 'mk-logo')}<b>${esc(m)}</b></a>`).join('')}</div>
       <h2 class="mk-sub">Kõik margid A–Z</h2>
-      <div class="mk-az">${letters.map((L) => `<section><h3>${L}</h3><div data-no-i18n>${all.filter((m) => m[0].toUpperCase() === L).map((m) => `<a href="mark.html?m=${encodeURIComponent(m)}" data-name="${esc(m.toLowerCase())}">${brandLogo(m, 'az-logo')}${esc(m)}</a>`).join('')}</div></section>`).join('')}</div>`;
+      <div class="mk-az">${letters.map((L) => `<section class="mk-letter" data-letter="${L}"><h3>${L}</h3>
+        <div class="mk-grid popular" data-no-i18n>${all.filter((m) => m[0].toUpperCase() === L).map((m) =>
+          `<a class="mk-tile brand" href="mark.html?m=${encodeURIComponent(m)}" data-name="${esc(m.toLowerCase())}">${brandLogo(m, 'mk-logo')}<b>${esc(m)}</b></a>`).join('')}</div>
+      </section>`).join('')}</div>`;
   } else if (!model) {
     /* Step 2: models of the make */
     const list = sortModels(modelsOf(make));
@@ -80,7 +83,7 @@ function initMakes() {
   s?.addEventListener('input', () => {
     const v = s.value.trim().toLowerCase();
     root.querySelectorAll('[data-name]').forEach((a) => { a.hidden = v && !a.dataset.name.includes(v); });
-    root.querySelectorAll('.mk-az section').forEach((sec) => { sec.hidden = ![...sec.querySelectorAll('a')].some((a) => !a.hidden); });
+    root.querySelectorAll('.mk-letter').forEach((sec) => { sec.hidden = ![...sec.querySelectorAll('a')].some((a) => !a.hidden); });
     root.querySelector('.mk-grid.popular')?.toggleAttribute('hidden', !!v);
   });
 }
