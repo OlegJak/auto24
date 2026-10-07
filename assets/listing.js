@@ -43,7 +43,9 @@ function initListing() {
       <div>
         <div class="gallery">
           <div class="gallery-main">
-            <img id="gMain" src="${imgs[0]}" alt="${esc(c.make)} ${esc(c.model)}" fetchpriority="high">
+            <div class="g-track" id="gTrack">${imgs.map((src, i) =>
+              `<div class="g-slide"><img src="${src}" alt="${esc(c.make)} ${esc(c.model)} — foto ${i + 1}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} draggable="false"></div>`).join('')}
+            </div>
             <button class="nav prev" aria-label="Eelmine foto">${icon('chevLeft')}</button>
             <button class="nav next" aria-label="Järgmine foto">${icon('chevRight')}</button>
             <span class="tag tag-glass counter num" id="gCount">${icon('camera')} 1 / ${imgs.length}</span>
@@ -207,22 +209,34 @@ function initListing() {
       <button class="btn btn-primary" onclick="document.getElementById('callBtn').click()">${icon('phone')}Helista</button>
     </div>`;
 
-  /* Gallery */
+  /* Gallery: a scroll-snap track, so on touch screens photos follow the finger and snap */
+  const track = document.getElementById('gTrack');
   let cur = 0;
-  const show = (i) => {
-    cur = (i + imgs.length) % imgs.length;
-    document.getElementById('gMain').src = imgs[cur];
+  const mark = (i) => {
+    if (i === cur && track.dataset.ready) return;
+    cur = i; track.dataset.ready = '1';
     document.getElementById('gCount').innerHTML = `${icon('camera')} ${cur + 1} / ${imgs.length}`;
     document.querySelectorAll('#thumbs button').forEach((b, j) => b.setAttribute('aria-current', j === cur));
+    document.querySelector(`#thumbs button[data-i="${cur}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   };
+  const show = (i) => {
+    const n = (i + imgs.length) % imgs.length;
+    track.scrollTo({ left: n * track.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  };
+  let raf = 0;
+  track.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => mark(Math.round(track.scrollLeft / track.clientWidth)));
+  }, { passive: true });
+  mark(0);
   document.getElementById('thumbs').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) show(+b.dataset.i); });
   root.querySelector('.prev').addEventListener('click', () => show(cur - 1));
   root.querySelector('.next').addEventListener('click', () => show(cur + 1));
-  document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });
-  let x0 = null;
-  const gm = root.querySelector('.gallery-main');
-  gm.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-  gm.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1)); x0 = null; });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, select, textarea')) return;
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
 
   document.getElementById('equipMore')?.addEventListener('click', (e) => {
     document.getElementById('equip').classList.remove('collapsed'); e.currentTarget.remove();
