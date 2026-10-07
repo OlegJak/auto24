@@ -57,8 +57,9 @@
 html.i18n-wait body { visibility: hidden; }
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; touch-action: manipulation; }
-/* Never let the page pan sideways on phones (clip keeps position: sticky working) */
-html, body { overflow-x: clip; }
+/* Never let the page pan sideways on phones. Only on <html> (propagates to the viewport), so <body>
+   never becomes a scroll container and the sticky header keeps working; scroll-lock also uses <html>. */
+html { overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);
@@ -183,10 +184,48 @@ select.control {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7380' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 12px center;
 }
-select.control:disabled { opacity: .55; cursor: not-allowed; }
+select.control:disabled, .dd-btn:disabled { opacity: .55; cursor: not-allowed; }
+
+/* ---------- Custom dropdowns (assets/dropdown.js) ---------- */
+.dd-native { position: absolute !important; width: 1px !important; height: 1px !important; opacity: 0; pointer-events: none; overflow: hidden; clip-path: inset(50%); }
+.dd-btn {
+  display: flex; align-items: center; text-align: left; cursor: pointer; padding-right: 38px; white-space: nowrap;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7380' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.dd-btn .dd-val { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.dd-btn.dd-open { border-color: var(--accent); box-shadow: 0 0 0 4px var(--focus); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%230066cc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 15-6-6-6 6'/%3E%3C/svg%3E"); }
+.dd-panel {
+  position: fixed; z-index: 90; max-width: min(420px, calc(100vw - 16px)); display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-lg);
+  opacity: 0; transform: translateY(-4px) scale(.98); transform-origin: top center; transition: opacity .14s ease, transform .16s var(--ease);
+}
+.dd-panel.up { transform-origin: bottom center; transform: translateY(4px) scale(.98); }
+.dd-panel.in { opacity: 1; transform: none; }
+.dd-search { padding: 8px 8px 4px; border-bottom: 1px solid var(--line); }
+.dd-search .control { height: 38px; font-size: 14px; border-radius: 10px; }
+.dd-list { list-style: none; margin: 0; padding: 6px; overflow: auto; overscroll-behavior: contain; flex: 1; min-height: 0; scrollbar-width: thin; }
+.dd-group { padding: 10px 10px 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.dd-group[hidden], .dd-opt[hidden] { display: none; }
+.dd-opt { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 38px; padding: 8px 10px; border-radius: 9px; font-size: 15px; cursor: pointer; }
+.dd-opt svg.i { color: var(--accent); opacity: 0; flex: none; }
+.dd-opt.act { background: var(--surface-2); }
+.dd-opt.sel { color: var(--accent); font-weight: 600; }
+.dd-opt.sel svg.i { opacity: 1; }
+.dd-opt.dis { opacity: .45; cursor: default; }
+.dd-backdrop { position: fixed; inset: 0; z-index: 89; background: rgba(13,17,23,.4); opacity: 0; transition: opacity .2s; }
+.dd-backdrop.in { opacity: 1; }
+.dd-panel.sheet { left: 0; right: 0; bottom: 0; top: auto; max-width: none; max-height: 72vh; border-radius: 20px 20px 0 0; border: 0; transform: translateY(100%); transition: transform .26s var(--ease); padding-bottom: env(safe-area-inset-bottom); }
+.dd-panel.sheet.in { transform: none; }
+.dd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 12px 8px 20px; }
+.dd-head b { font-size: 17px; }
+.dd-panel.sheet .dd-list { padding: 4px 10px 12px; }
+.dd-panel.sheet .dd-opt { min-height: 48px; font-size: 16px; padding: 10px 12px; }
+.dd-panel.sheet .dd-search { padding: 0 12px 8px; border: 0; }
+.dd-panel.sheet .dd-search .control { height: 44px; font-size: 16px; }
 .range { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .range .control { padding-left: 12px; }
-.range select.control { padding-right: 28px; background-position: right 6px center; background-size: 18px; }
+.range select.control, .range .dd-btn { padding-right: 28px; background-position: right 6px center; background-size: 18px; }
 .input-suffix { position: relative; }
 .input-suffix span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
 .input-suffix .control { padding-right: 34px; }
@@ -430,7 +469,7 @@ select.control:disabled { opacity: .55; cursor: not-allowed; }
 .toolbar .active .chip { height: 32px; font-size: 13px; background: var(--surface-2); border-color: transparent; }
 .toolbar .active .chip:hover { border-color: var(--line-strong); }
 .toolbar-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.toolbar select.control { height: 40px; font-size: 14px; width: auto; }
+.toolbar select.control, .toolbar .dd-btn { height: 40px; font-size: 14px; width: auto; }
 .view-toggle { display: flex; padding: 3px; background: var(--surface-2); border-radius: 10px; }
 .view-toggle button { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; color: var(--muted); }
 .view-toggle button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
@@ -830,7 +869,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); height: 24px; ma
   .toolbar .active { display: none; }
   .toolbar { gap: 8px; }
   .toolbar-right { margin-left: 0; flex: 1; }
-  .toolbar-right select.control { flex: 1; }
+  .toolbar-right select.control, .toolbar-right .dd-btn { flex: 1; }
   .results.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .results.list .car-card { flex-direction: column; }
   .results.list .car-media { width: 100%; min-height: 0; aspect-ratio: 16 / 10; }

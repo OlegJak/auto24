@@ -291,7 +291,7 @@ function initSearch() {
   const openSheet = (open) => {
     panel.classList.toggle('open', open);
     backdrop.classList.toggle('show', open);
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   };
   $('#openFilters').addEventListener('click', () => openSheet(true));
   $('#applyFilters').addEventListener('click', () => { openSheet(false); scrollTo({ top: 0, behavior: 'smooth' }); });

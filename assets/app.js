@@ -261,11 +261,12 @@ function renderChrome() {
 
   const menuBtn = header.querySelector('.menu-btn');
   menuBtn.addEventListener('click', () => {
-    mobileNav.style.top = `${header.getBoundingClientRect().bottom}px`;
-    const open = mobileNav.classList.toggle('open');
+    const open = !mobileNav.classList.contains('open');
+    if (open) mobileNav.style.top = `${Math.max(0, header.getBoundingClientRect().bottom)}px`;
+    mobileNav.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', open);
     menuBtn.innerHTML = icon(open ? 'x' : 'menu');
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   });
 
   const footer = document.createElement('footer');

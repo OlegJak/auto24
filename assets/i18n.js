@@ -86,7 +86,7 @@ const RU_UI = {
   'Demo: siin kuvatakse müüja telefoninumber': 'Демо: здесь будет показан номер продавца', 'Demo: siin avaneb vestlus müüjaga': 'Демо: здесь откроется переписка с продавцом',
   'Täname, vaatame kuulutuse üle': 'Спасибо, мы проверим объявление', 'Demo: siin avaneb 3-sammuline kuulutuse lisamine': 'Демо: здесь откроется подача объявления в 3 шага',
   'Demo: selles prototüübis on aktiivsed ainult autod': 'Демо: в этом прототипе активны только автомобили',
-  'eile': 'вчера', 'just praegu': 'только что',
+  'eile': 'вчера', 'Otsi…': 'Искать…', 'Otsi': 'Искать', 'Sulge': 'Закрыть', 'just praegu': 'только что',
 
   // leasing / tax / ostuabi
   'Summa': 'Сумма', 'Laenusumma': 'Сумма кредита', 'Jääkmaksumusega (25%)': 'С остаточной стоимостью (25%)', 'Koos registreerimistasuga': 'Вместе с регистрационным сбором',
