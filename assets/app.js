@@ -46,6 +46,7 @@ const ICONS = {
   music: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
   tire: '<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="4"/><path d="M12 2.5V8M12 16v5.5M2.5 12H8M16 12h5.5"/>',
   flag: '<path d="M4 22V4M4 4h13l-2.5 4.5L17 13H4"/>',
+  carPlus: '<g transform="translate(-.5 3) scale(.86)"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g><path d="M19.5 1.5v6M16.5 4.5h6"/>',
   info: '<circle cx="12" cy="12" r="9.5"/><path d="M12 16v-4.5M12 8h.01"/>',
   download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
   hash: '<path d="M4 9h16M4 15h16M10 3 8 21M16 3l-2 18"/>',
@@ -244,7 +245,7 @@ function renderChrome() {
       </nav>
       <div class="header-actions">
         <a href="#" class="icon-btn fav-btn" aria-label="Lemmikud">${icon('heart')}<span class="badge-dot" data-fav-count></span></a>
-        <a href="#" class="btn btn-primary sell-btn" data-sell>${icon('plus')}<span>Müü auto</span></a>
+        <a href="#" class="btn btn-primary sell-btn" data-sell aria-label="Müü auto">${icon('carPlus', 'lg')}<span>Müü auto</span></a>
         <button class="icon-btn menu-btn" aria-label="Menüü" aria-expanded="false">${icon('menu')}</button>
       </div>
     </div>`;
@@ -252,7 +253,7 @@ function renderChrome() {
   mobileNav.className = 'mobile-nav';
   mobileNav.setAttribute('aria-label', 'Mobiilimenüü');
   mobileNav.innerHTML = nav.map(([href, label]) => `<a href="${href}">${label}${icon('chevRight')}</a>`).join('') +
-    `<a href="#" data-lang-toggle>${LANG === 'ru' ? 'Eesti keeles' : 'На русском'}${icon('globe')}</a><a href="#">Logi sisse${icon('user')}</a><a href="#" class="btn btn-primary btn-lg btn-block" data-sell>${icon('plus')}Müü oma auto</a>`;
+    `<a href="#" data-lang-toggle>${LANG === 'ru' ? 'Eesti keeles' : 'На русском'}${icon('globe')}</a><a href="#">Logi sisse${icon('user')}</a><a href="#" class="btn btn-primary btn-lg btn-block" data-sell>${icon('carPlus', 'lg')}Müü oma auto</a>`;
   document.body.prepend(topbar, header, mobileNav);
   topbar.querySelector('#langSelect').addEventListener('change', (e) => setLang(e.target.value));
 

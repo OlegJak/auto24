@@ -829,7 +829,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent); height: 24px; ma
   .topbar-actions .login-btn { padding: 0 8px; }
   .topbar-actions .login-btn { font-size: 0; gap: 0; }
   .sell-btn span { display: none; }
-  .sell-btn { width: 40px; padding: 0; }
+  .sell-btn { width: 44px; padding: 0; }
+  .sell-btn svg.i { width: 26px; height: 26px; }
   .hero { padding-top: 20px; }
   .ad-slot { padding-top: 12px; }
   .ad { border-radius: 14px; }
